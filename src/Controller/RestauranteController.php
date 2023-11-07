@@ -38,15 +38,15 @@ class RestauranteController extends AbstractController
 
 
     #[Route('/restaurante', name: 'crear_restaurante' , methods:["POST"])]
-    #[Route('/restaurante/crear', name: 'crear_restaurante' , methods:["POST" , "GET"])]
+   // #[Route('/restaurante/crear', name: 'crear_restaurante' , methods:["POST" , "GET"])]
     public function crear_restaurante(EntityManagerInterface $manager , Request $request): JsonResponse
     {
 
         $restaurante = new Restaurante;
 
-        $restaurante -> setNombre("kfc");
-        $restaurante -> setDireccion("plaza mayor");
-        $restaurante -> setTelefono("463546487");
+        $restaurante -> setNombre("md");
+        $restaurante -> setDireccion("plaza ajuntamiento");
+        $restaurante -> setTelefono("999*487");
         $restaurante -> setTipoCocina("comidaRapida");
         $manager -> persist($restaurante);
         $manager->flush();
@@ -68,9 +68,17 @@ class RestauranteController extends AbstractController
         #[Route('/restaurante/{id}', name: 'detalle_restaurante' , methods:[ "GET"])]
         public function detalle_restaurante(int $id,RestauranteRepository $restauranteRepository): JsonResponse
         {
+            
             $restaurante = $restauranteRepository->find($id);
 
-            return $this->json($restaurante);
+            if ($restaurante) {
+
+                            return $this->json($restaurante);
+
+            }else{
+                return $this->json('No existe El restaurante con ID '.$id ,404);
+            }
+
             /*
             return $this->render('restaurante/index.html.twig', [
                 'controller_name' => 'RestauranteController',
@@ -83,13 +91,28 @@ class RestauranteController extends AbstractController
 
     #[Route('/restaurante/{id}', name: 'eleminar_restaurante' , methods:[ "DELETE"])]
     #[Route('/restaurante/{id}/delete', name: 'eleminar_restaurante_get',methods:["GET"])]
-
-        public function eleminar_restaurante(int $id): Response
+        public function eleminar_restaurante(int $id,RestauranteRepository $restauranteRepository , EntityManagerInterface $manager): JsonResponse
         {
+            $restaurante = $restauranteRepository->find($id);
+
+            if ($restaurante) {
+                $manager -> remove($restaurante);
+                $manager->flush();
+
+                return $this->json('el restaurante ha eliminado con ID '. $id);
+            }
+            else{
+                    return $this->json("NO EXISTE EL RESTAURANTE CON ID ".$id ,404);
+            }
+
+            
+            /*
             return $this->render('restaurante/index.html.twig', [
                 'controller_name' => 'RestauranteController',
             ]);
+             //*/
         }
+       
 
 
     //-----------------------------------ACTUALIZAR RESTAURANTE--------------------------------
@@ -97,10 +120,29 @@ class RestauranteController extends AbstractController
 
     #[Route('/restaurante/{id}', name: 'actualizar_restaurante',methods:["PATCH"])]
 
-        public function actualizar_restaurante(int $id): Response
+        public function actualizar_restaurante(int $id , RestauranteRepository $restauranteRepository, EntityManagerInterface $manager): JsonResponse
         {
+            $restaurante = $restauranteRepository->find($id);
+
+            if ($restaurante) {
+                $restaurante ->setNombre('BURGER KING');
+                $restaurante->setDireccion('PLAZA CATALONYA');
+                $restaurante->setTelefono('46546222222222');
+                $manager->persist($restaurante);
+                $manager->flush();
+                return $this->json('ACTUALIZADO EL RESTAURANTE '. $id);
+            }
+            else{
+                return $this->json("NO EXISTE ID ". $id ,404);
+
+            }
+
+
+            /*
             return $this->render('restaurante/index.html.twig', [
                 'controller_name' => 'RestauranteController',
             ]);
+
+            //*/
         }
 }
