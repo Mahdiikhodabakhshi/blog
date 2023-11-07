@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Restaurante;
 use App\Repository\RestauranteRepository;
+use App\Repository\VisitaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,23 +16,23 @@ class RestauranteController extends AbstractController
 {
     //-----------------------------------LISTADO RESTAURANTES--------------------------------
 
-    #[Route('/restaurante', name: 'listado_restaurantes' , methods:["GET"])]
+    #[Route('/restaurante', name: 'listado_restaurante' , methods:["GET"])]
     #[Route('/', name: 'raiz_restaurante' , methods:["GET"])]
-    public function listado_restaurantes(RestauranteRepository $restauranteRepository): JsonResponse
+    public function listado_restaurantes(RestauranteRepository $restauranteRepository): Response
     {
-
+            /*
         $listaRestaurantes = $restauranteRepository->findAll();
 
         return $this->json($listaRestaurantes);
+            //*/
 
 
 
-
-        /*
-        return $this->render('restaurante/index.html.twig', [
-            'controller_name' => 'RestauranteController',
+        
+        return $this->render('restaurante/listado_restaurante.html.twig', [
+            'restaurantes' => $restauranteRepository->findAll(),
         ]);
-        //*/
+        
     }
 
     //-----------------------------------CREAR RESTAURANTE--------------------------------
@@ -66,9 +67,9 @@ class RestauranteController extends AbstractController
     //-----------------------------------DETALLE RESTAURANTE--------------------------------
 
         #[Route('/restaurante/{id}', name: 'detalle_restaurante' , methods:[ "GET"])]
-        public function detalle_restaurante(int $id,RestauranteRepository $restauranteRepository): JsonResponse
+        public function detalle_restaurante(int $id,RestauranteRepository $restauranteRepository): Response
         {
-            
+             /*
             $restaurante = $restauranteRepository->find($id);
 
             if ($restaurante) {
@@ -79,12 +80,17 @@ class RestauranteController extends AbstractController
                 return $this->json('No existe El restaurante con ID '.$id ,404);
             }
 
-            /*
-            return $this->render('restaurante/index.html.twig', [
-                'controller_name' => 'RestauranteController',
+           //*/
+
+          
+
+            return $this->render('restaurante/detalle_restaurante.html.twig', [
+                'restaurante' => $restauranteRepository->find($id),
+                
+                
             ]);
 
-            //*/
+            
         }
 
     //-----------------------------------ELEMINAR RESTAURANTE--------------------------------

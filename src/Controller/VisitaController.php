@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Visita;
+use App\Repository\RestauranteRepository;
 use App\Repository\VisitaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class VisitaController extends AbstractController
 {
@@ -33,13 +35,13 @@ class VisitaController extends AbstractController
    
        #[Route('/visitas', name: 'crear_visitas' , methods:["POST"])]
       // #[Route('/visitas/crear', name: 'crear_visitas' , methods:["POST" , "GET"])]
-       public function crear_visitas(EntityManagerInterface $Manager): JsonResponse
+       public function crear_visitas(EntityManagerInterface $Manager ,RestauranteRepository $r,Request $request): JsonResponse
        {
         $visita = new Visita();
-        //TODO
+        
+        $res = $r->find(1);
 
-
-        //$visita -> setRestaurante(1);
+        $visita -> setRestaurante($res);
 
         $visita -> setValoracion(10);
         $visita -> setComentario("muuuuy buena restaurante");
@@ -109,10 +111,28 @@ class VisitaController extends AbstractController
    
        #[Route('/visitas/{id}', name: 'actualizar_visitas',methods:["PATCH"])]
    
-           public function actualizar_visitas(int $id): Response
+           public function actualizar_visitas(int $id,VisitaRepository $visitaRepository,EntityManagerInterface $manager): JsonResponse
            {
+            $visita = $visitaRepository->find($id);
+            if ($visita){
+                $visita ->setValoracion(5);
+                $visita -> setComentario("SSSDFGS");
+              //  $visita -> setRestaurante(5);
+              //  $Manager->persist($visita);
+              //  $Manager->flush();
+                
+                return $this->json("Actualizado ". $id );
+            }
+            else{
+                    return $this->json('NO EXISTE ID '. $id);
+            }
+
+
+                
+                /*
                return $this->render('restaurante/index.html.twig', [
                    'controller_name' => 'RestauranteController',
                ]);
+               //*/
            }
 }
