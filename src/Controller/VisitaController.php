@@ -34,12 +34,12 @@ class VisitaController extends AbstractController
    
    
        #[Route('/visitas', name: 'crear_visitas' , methods:["POST"])]
-      // #[Route('/visitas/crear', name: 'crear_visitas' , methods:["POST" , "GET"])]
+      // #[Route('/visitas/crear/{id}', name: 'crear_visitas' , methods:["POST" , "GET"])]
        public function crear_visitas(EntityManagerInterface $Manager ,RestauranteRepository $r,Request $request): JsonResponse
        {
         $visita = new Visita();
         
-        $res = $r->find(1);
+        $res = $r->find(9);
 
         $visita -> setRestaurante($res);
 

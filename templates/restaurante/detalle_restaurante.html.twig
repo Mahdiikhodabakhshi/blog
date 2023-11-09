@@ -12,23 +12,24 @@
     <h1> restaurante {{restaurante.getId()}}! ✅</h1>
 
         <strong>    {{restaurante.getNombre()}}    </strong> <br>
-                <p>
-                         direccion:  {{restaurante.getDireccion()}} <br> 
-                         Telefono:  {{restaurante.getTelefono()}} <br>
-                         Tipo de Cocina:  {{restaurante.getTipoCocina()}} <br>
-                         Visitas:<br>
+                <ul>
+                
+                        <li> direccion:  {{restaurante.getDireccion()}} <br> </li>
+                         <li>Telefono:  {{restaurante.getTelefono()}} <br></li>
+                        <li> Tipo de Cocina:  {{restaurante.getTipoCocina()}} <br></li>
+                        <li> Visitas:<br></li>
                         {% for visita in restaurante.getVisitas() %}
-                            
+                           <p> 
                             Valoracion:{{visita.valoracion()}}<br>
                             Comentario:{{visita.comentario()}}<br>
-                            <button {% do restaurante.removeVisita({{visita}}) %}>eliminar</button>
+                            </p>
                         {% endfor %}
-                        
+                </ul>        
                         
                         
                          
                 
-                </p>
+                
 
                 <a href={{ path('listado_restaurante') }}> Volver</a>
               

@@ -11,13 +11,17 @@
 <div class="example-wrapper">
     <h1>Listado de los restaurantes! ✅</h1>
 
-    
+        <a href="{{ path("crear_restaurante_formulario") }}">crear receta nueva</a> <br><hr>
+
     <ul>
         {% for restaurante in restaurantes%}
         <li>
-        <a href="{{ path('detalle_restaurante', {'id': restaurante.getId()}) }}">
-            {{restaurante.getId()}}  {{restaurante.getNombre()}}
+      
+          ID:  {{restaurante.getId()}} NAME:   <a href="{{ path('detalle_restaurante', {'id': restaurante.getId()}) }}">{{restaurante.getNombre()}}
          </a>   
+         <a  href={{path('eleminar_restaurante_get' , {id:restaurante.getID() } )}}>
+          <button >   eliminar</button></a>
+         <hr>
             
         </li>
         {% endfor %}
