@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RestauranteController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1> visita {{visita.getId()}}! ✅</h1>
+
+        <strong> Visita para restaurante :  {{visita.getRestaurante().getNombre()}}    </strong> <br>
+                <ul>
+                        <li>ID de Restaurante:  {{visita.getRestaurante().getId()}}  <br></li>
+
+                        <li> Valoracion:  {{visita.getValoracion()}} <br> </li>
+                         
+                        <li> Comentario:  {{visita.getComentario()}} <br></li>
+ 
+                </ul>        
+                        
+                        
+                         
+                
+                
+
+                <a href={{ path('listado_visitas') }}> Volver</a>
+              
+            
+      
+</div>
+{% endblock %}
