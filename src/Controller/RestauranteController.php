@@ -155,7 +155,7 @@ class RestauranteController extends AbstractController
 
            }else{
 
-            return $this->json(['no existe restaurante con id '.$id .' para mostrar detalle']);
+            return $this->json('no existe restaurante con id '.$id .' para mostrar detalle',404);
            }
           
 

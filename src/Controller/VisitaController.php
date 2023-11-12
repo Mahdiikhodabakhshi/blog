@@ -112,7 +112,7 @@ class VisitaController extends AbstractController
                 ]);
             }
             else{
-                return $this->json("no exitse visita con ID ". $id );
+                return $this->json("no exitse visita con ID ". $id ,404);
             }
               
                
