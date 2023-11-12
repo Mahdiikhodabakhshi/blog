@@ -6,6 +6,10 @@
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+    a{
+        display:inline;
+    }
      button{
         padding:5px;
         border-radius:5px;
@@ -18,7 +22,13 @@
     <h1> restaurante {{restaurante.getId()}}! ✅</h1>
 
         <strong>    {{restaurante.getNombre()}}    </strong> <br>
-         <a style="margin-left:100% ;" href={{path('crear_visitas_formulario' , {id:restaurante.getID() } )}}><button style="background-color:#ffbe0b;  " >Añadir visita</button></a>
+        <div>
+            <a style="margin-left:100%;" href={{path('actualizar_restaurante_get' , {id:restaurante.getID() } )}}><button style="background-color:#02c39a;  " >Actualizar restaurante</button></a>
+            <a style="margin-left:100% ;" href={{path('crear_visitas_formulario' , {id:restaurante.getID() } )}}><button style="background-color:#ffbe0b;  " >Añadir visita</button></a>
+            
+            
+        </div>
+        
                 <ul>
                 
                         <li> direccion:  {{restaurante.getDireccion()}} <br> </li>

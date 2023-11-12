@@ -143,6 +143,7 @@ class RestauranteController extends AbstractController
 
            //*/
 
+
            $restaurante = $restauranteRepository->find($id);
 
            if($restaurante){
@@ -241,7 +242,7 @@ class RestauranteController extends AbstractController
                             $manager->persist($restaurante);
                             $manager->flush();
                             
-                            return $this->redirectToRoute("listado_restaurante");
+                            return $this->redirectToRoute("detalle_restaurante",['id'=>$id]);
 
                         }else{
                             //mostrar el formulario para que el usario lo rellene
