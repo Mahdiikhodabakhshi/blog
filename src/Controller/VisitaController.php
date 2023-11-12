@@ -102,21 +102,21 @@ class VisitaController extends AbstractController
            #[Route('/visitas/{id}', name: 'detalle_visita' , methods:[ "GET"])]
            public function detalle_visitas(int $id,VisitaRepository $visitaRepository): Response
            {
-            /*
+            
             $visita = $visitaRepository->find($id);
             if ($visita) {
-                return $this->json($visita);
+                return $this->render('visita/detalle_visita.html.twig', [
+                    'visita' => $visitaRepository->find($id),
+                    
+                    
+                ]);
             }
             else{
                 return $this->json("no exitse visita con ID ". $id );
             }
               
-               //*/
-               return $this->render('visita/detalle_visita.html.twig', [
-                'visita' => $visitaRepository->find($id),
-                
-                
-            ]);
+               
+               
            }
    
        //-----------------------------------ELIMINAR RESTAURANTE--------------------------------
@@ -135,7 +135,7 @@ class VisitaController extends AbstractController
                  return $this->redirectToRoute("detalle_restaurante",['id'=>$idrestaurante] );
             }
             else{
-                throw $this->createNotFoundException("No existe receta con el id".$id);
+                throw $this->createNotFoundException("No existe visita con el id".$id);
             }
 
 

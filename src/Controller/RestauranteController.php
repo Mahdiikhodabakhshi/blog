@@ -143,13 +143,23 @@ class RestauranteController extends AbstractController
 
            //*/
 
-          
+           $restaurante = $restauranteRepository->find($id);
+
+           if($restaurante){
 
             return $this->render('restaurante/detalle_restaurante.html.twig', [
                 'restaurante' => $restauranteRepository->find($id),
                 
                 
             ]);
+
+           }else{
+
+            return $this->json(['no existe restaurante con id '.$id .' para mostrar detalle']);
+           }
+          
+
+           
 
             
         }
@@ -169,7 +179,7 @@ class RestauranteController extends AbstractController
                  return $this->redirectToRoute("listado_restaurante");
             }
             else{
-                throw $this->createNotFoundException("No existe receta con el id".$id);
+                throw $this->createNotFoundException("No existe restaurante con el id ".$id);
             }
 
             
@@ -208,6 +218,10 @@ class RestauranteController extends AbstractController
                         ])
                         ->add("Telefono" , IntegerType::class,[
                             "required" => false,
+                            'attr' => ['maxlength' => 12]
+                           // "constraints"=>[
+                            //    new Length(["max" => 12])
+                           // ]
                         ])
                         ->add("tipoCocina" , TextType::class , [
                             "required" => false,
