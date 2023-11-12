@@ -181,13 +181,6 @@ class RestauranteController extends AbstractController
             else{
                 throw $this->createNotFoundException("No existe restaurante con el id ".$id);
             }
-
-            
-            /*
-            return $this->render('restaurante/index.html.twig', [
-                'controller_name' => 'RestauranteController',
-            ]);
-             //*/
         }
        
 
@@ -271,4 +264,7 @@ class RestauranteController extends AbstractController
 
             //*/
         }
+
+      
+
 }
